@@ -3,200 +3,609 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>英語学習教室 - English Grammar Academy</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;600;700&family=Shippori+Mincho:wght@500;700&display=swap" rel="stylesheet">
+    <title>Academic English Grammar & Writing Practice</title>
     <style>
+        :root {
+            --primary-color: #1a365d;
+            --secondary-color: #2b6cb0;
+            --bg-color: #f7fafc;
+            --card-bg: #ffffff;
+            --text-color: #2d3748;
+            --border-color: #e2e8f0;
+            --success-color: #276749;
+            --success-bg: #f0fff4;
+            --error-color: #9b2c2c;
+            --error-bg: #fff5f5;
+        }
+
         body {
-            font-family: 'Shippori Mincho', 'Noto Serif JP', serif;
-            background-color: #f4f1ea;
-            color: #2b2b2b;
-            background-image: radial-gradient(#d5cebe 0.75px, transparent 0.75px);
-            background-size: 16px 16px;
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 20px;
         }
-        .japanese-border {
-            border: 2px solid #1e293b;
-            box-shadow: 4px 4px 0px #1e293b;
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05), 0 1px 3px rgba(0, 0, 0, 0.1);
         }
-        .red-ink {
-            color: #c82323;
-            font-family: 'Courier New', Courier, monospace;
-            font-weight: bold;
+
+        header {
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 20px;
+            margin-bottom: 30px;
         }
-        .hanko-stamp {
-            border: 3px solid #c82323;
-            color: #c82323;
-            border-radius: 50%;
-            display: inline-flex;
+
+        h1 {
+            color: var(--primary-color);
+            margin: 0 0 10px 0;
+            font-size: 2rem;
+        }
+
+        .nav-tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 30px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 10px;
+        }
+
+        .tab-btn {
+            background: #edf2f7;
+            border: 1px solid var(--border-color);
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            color: #4a5568;
+            transition: all 0.2s;
+        }
+
+        .tab-btn:hover {
+            background: #e2e8f0;
+        }
+
+        .tab-btn.active {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+
+        .section-content {
+            display: none;
+        }
+
+        .section-content.active {
+            display: block;
+        }
+
+        .exercise-card {
+            background: #fff;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .passage-box {
+            background-color: #f8fafc;
+            border-left: 4px solid var(--secondary-color);
+            padding: 15px;
+            margin-bottom: 20px;
+            font-size: 0.95rem;
+        }
+
+        .question-item {
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px dashed var(--border-color);
+        }
+
+        .question-item:last-child {
+            border-bottom: none;
+        }
+
+        .question-text {
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .word-bank {
+            background: #edf2f7;
+            padding: 10px 15px;
+            border-radius: 4px;
+            margin-bottom: 15px;
+            font-weight: 500;
+        }
+
+        .options-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        .option-label {
+            display: flex;
             align-items: center;
-            justify-content: center;
-            transform: rotate(-12deg);
-            font-weight: bold;
+            gap: 10px;
+            cursor: pointer;
+            padding: 6px 10px;
+            border-radius: 4px;
+            border: 1px solid transparent;
         }
-        .chalkboard {
-            background-color: #1b382b;
-            color: #f8fafc;
-            border: 8px solid #854d0e;
-            box-shadow: inset 0 0 20px rgba(0,0,0,0.6);
+
+        .option-label:hover {
+            background-color: #f7fafc;
+            border-color: var(--border-color);
+        }
+
+        input[type="text"], select {
+            width: 100%;
+            max-width: 400px;
+            padding: 8px 12px;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            font-size: 0.95rem;
+            box-sizing: border-box;
+        }
+
+        input[type="text"]:focus, select:focus {
+            outline: none;
+            border-color: var(--secondary-color);
+        }
+
+        .btn-check {
+            background-color: var(--secondary-color);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 10px;
+            font-weight: 600;
+        }
+
+        .btn-check:hover {
+            background-color: var(--primary-color);
+        }
+
+        .feedback {
+            margin-top: 10px;
+            padding: 10px 15px;
+            border-radius: 4px;
+            display: none;
+            font-size: 0.95rem;
+        }
+
+        .feedback.correct {
+            display: block;
+            background-color: var(--success-bg);
+            color: var(--success-color);
+            border: 1px solid #c6f6d5;
+        }
+
+        .feedback.incorrect {
+            display: block;
+            background-color: var(--error-bg);
+            color: var(--error-color);
+            border: 1px solid #fed7d7;
+        }
+
+        .sub-text {
+            font-size: 0.85rem;
+            color: #718096;
+            margin-top: 2px;
         }
     </style>
 </head>
-<body class="min-h-screen py-8 px-4 flex flex-col items-center">
+<body>
 
-    <!-- Header Section -->
-    <header class="w-full max-w-4xl bg-white japanese-border p-6 mb-8 flex justify-between items-center bg-amber-50/40">
-        <div>
-            <div class="text-xs font-bold tracking-widest text-slate-500 uppercase mb-1">Academic Grammar Test • 英語科</div>
-            <h1 class="text-3xl font-bold text-slate-900 tracking-wide">高等英語演習教室</h1>
-            <p class="text-sm text-slate-600 mt-1">Japanese School Formal Edition — Interactive Practice & Correction</p>
-        </div>
-        <div class="text-right">
-            <div class="hanko-stamp w-16 h-16 text-xs uppercase tracking-tighter border-4">
-                <span class="text-center leading-tight">合格<br>EXCELLENCE</span>
-            </div>
-        </div>
+<div class="container">
+    <header>
+        <h1>Academic English Workbook Exercises</h1>
+        <p>Interactive Practice Module</p>
     </header>
 
-    <!-- Main Container -->
-    <main class="w-full max-w-4xl space-y-6">
+    <div class="nav-tabs">
+        <button class="tab-btn active" onclick="showTab('part1')">Prepositions (Activities 1-3)</button>
+        <button class="tab-btn" onclick="showTab('part2')">Word Forms & S-V Agreement</button>
+        <button class="tab-btn" onclick="showTab('part3')">Paragraph Editing (Ex 9)</button>
+        <button class="tab-btn" onclick="showTab('part4')">Exam Revision (Sec 1-2)</button>
+        <button class="tab-btn" onclick="showTab('part5')">Exam Revision (Sec 3)</button>
+        <button class="tab-btn" onclick="showTab('part6')">Exam Revision (Sec 4)</button>
+    </div>
 
-        <!-- Instructions Panel -->
-        <div class="chalkboard p-6 rounded-sm shadow-xl relative">
-            <h2 class="text-xl font-semibold mb-2 text-yellow-200 border-b border-yellow-200/30 pb-2">【 Instructions / 注意事項 】</h2>
-            <p class="text-sm leading-relaxed text-emerald-100">
-                Complete the grammar exercises below derived from school exam revision sheets. Choose the correct answer for each option. If you make a mistake, the <span class="text-red-300 font-bold">Teacher's Red Pen Correction (指導)</span> will appear instantly to guide your learning.
-            </p>
+    <!-- PART 1: Prepositions -->
+    <div id="part1" class="section-content active">
+        <h2>Writing with Prepositions</h2>
+
+        <!-- Activity 1 -->
+        <div class="exercise-card">
+            <h3>Activity 1 – Choose the Correct Preposition</h3>
+            
+            <div class="question-item" id="act1-q1">
+                <div class="question-text">1. Students involved (in / for) musical activities often experience a sense (of / with) belonging.</div>
+                <select id="act1-q1-a1"><option value="">-- Choose --</option><option value="in">in</option><option value="for">for</option></select>
+                <select id="act1-q1-a2"><option value="">-- Choose --</option><option value="of">of</option><option value="with">with</option></select>
+                <button class="btn-check" onclick="checkSelectMulti('act1-q1', ['in', 'of'])">Submit Answer</button>
+                <div class="feedback"></div>
+            </div>
+
+            <div class="question-item" id="act1-q2">
+                <div class="question-text">2. Scientists are studying the connection (between / with) air pollution and childhood asthma.</div>
+                <select id="act1-q2-a1"><option value="">-- Choose --</option><option value="between">between</option><option value="with">with</option></select>
+                <button class="btn-check" onclick="checkSelectMulti('act1-q2', ['between'])">Submit Answer</button>
+                <div class="feedback"></div>
+            </div>
+
+            <div class="question-item" id="act1-q3">
+                <div class="question-text">3. (In / On) January 2020, the team arrived (at / in) the station a week (before / since) the others.</div>
+                <select id="act1-q3-a1"><option value="">-- Choose --</option><option value="In">In</option><option value="On">On</option></select>
+                <select id="act1-q3-a2"><option value="">-- Choose --</option><option value="at">at</option><option value="in">in</option></select>
+                <select id="act1-q3-a3"><option value="">-- Choose --</option><option value="before">before</option><option value="since">since</option></select>
+                <button class="btn-check" onclick="checkSelectMulti('act1-q3', ['In', 'at', 'before'])">Submit Answer</button>
+                <div class="feedback"></div>
+            </div>
+
+            <div class="question-item" id="act1-q4">
+                <div class="question-text">4. Employers are searching (for / of) applicants (with / of) strong communication skills.</div>
+                <select id="act1-q4-a1"><option value="">-- Choose --</option><option value="for">for</option><option value="of">of</option></select>
+                <select id="act1-q4-a2"><option value="">-- Choose --</option><option value="with">with</option><option value="of">of</option></select>
+                <button class="btn-check" onclick="checkSelectMulti('act1-q4', ['for', 'with'])">Submit Answer</button>
+                <div class="feedback"></div>
+            </div>
+
+            <div class="question-item" id="act1-q5">
+                <div class="question-text">5. Water rises (into / above) the air as vapor and contributes (to / for) the formation (of / with) clouds.</div>
+                <select id="act1-q5-a1"><option value="">-- Choose --</option><option value="into">into</option><option value="above">above</option></select>
+                <select id="act1-q5-a2"><option value="">-- Choose --</option><option value="to">to</option><option value="for">for</option></select>
+                <select id="act1-q5-a3"><option value="">-- Choose --</option><option value="of">of</option><option value="with">with</option></select>
+                <button class="btn-check" onclick="checkSelectMulti('act1-q5', ['into', 'to', 'of'])">Submit Answer</button>
+                <div class="feedback"></div>
+            </div>
         </div>
 
-        <!-- Question Cards Container -->
-        <div id="quiz-container" class="space-y-6"></div>
+        <!-- Activity 3 -->
+        <div class="exercise-card">
+            <h3>Activity 3 – Fill in the Prepositions</h3>
+            <div class="word-bank">Word bank: about, at, for, in, on, between, from, of, with</div>
 
-    </main>
+            <div class="question-item" id="act3-q1">
+                <div class="question-text">1. Muscle weakness is associated <input type="text" id="act3-q1-a1"> some medical conditions and may affect movement <input type="text" id="act3-q1-a2"> the arms.</div>
+                <button class="btn-check" onclick="checkTextMulti('act3-q1', ['with', 'of'])">Submit Answer</button>
+                <div class="feedback"></div>
+            </div>
 
-    <!-- Footer -->
-    <footer class="mt-12 text-center text-xs text-slate-500 tracking-widest uppercase">
-        © Advanced Academic English Division • Formal Japanese High School Curriculum
-    </footer>
+            <div class="question-item" id="act3-q2">
+                <div class="question-text">2. The researchers interviewed <input type="text" id="act3-q2-a1"> eighty teachers <input type="text" id="act3-q2-a2"> their classroom experiences. The results <input type="text" id="act3-q2-a3"> the interviews appear <input type="text" id="act3-q2-a4"> Figure 2.</div>
+                <button class="btn-check" onclick="checkTextMulti('act3-q2', ['about', 'about', 'of', 'in'])">Submit Answer</button>
+                <div class="feedback"></div>
+            </div>
+        </div>
+    </div>
 
-    <!-- Script for Interactive Logic -->
-    <script>
-        const questionsData = [
-            {
-                id: 1,
-                section: "Section 1: Prepositions in Academic Writing",
-                questionText: "Complete the sentence with the correct preposition combination: <br><em>'Environmental non-profits must collaborate _____ local law enforcement and commit themselves _____ community awareness seminars.'</em>",
-                options: [
-                    { label: "A", text: "with; to in organizing", isCorrect: false, errorAnalysis: "Using 'in organizing' after 'commit themselves to' creates awkward syntax. 'To' functions as a preposition requiring a direct noun or gerund target." },
-                    { label: "B", text: "with; to organizing", isCorrect: true, correctAnalysis: "Correct! 'Collaborate with' indicates partnership, and 'commit oneself to' takes a gerund (-ing) as the object of the preposition." },
-                    { label: "C", text: "on; for organizing", isCorrect: false, errorAnalysis: "Incorrect collocations. You collaborate 'with' a group, not 'on' a group." },
-                    { label: "D", text: "to; in organizing", isCorrect: false, errorAnalysis: "'Collaborate to' requires a verb root (e.g., collaborate to build), but here it precedes a noun entity." }
-                ],
-                ruleTip: "Grammar Rule: 'Collaborate with [person/group]' | 'Commit to [doing something]'"
-            },
-            {
-                id: 2,
-                section: "Section 2: Word Suffix Formation",
-                questionText: "Transform the base word <strong>(urban)</strong> into the correct form: <br><em>'The rapid _____ of quiet farmland near the city has destroyed birds' natural nesting areas.'</em>",
-                options: [
-                    { label: "A", text: "urbanize", isCorrect: false, errorAnalysis: "'Urbanize' is a verb. The sentence requires a noun after the definite article 'The'." },
-                    { label: "B", text: "urbanization", isCorrect: true, correctAnalysis: "Correct! Adding '-ization' creates a noun representing the process of becoming urban." },
-                    { label: "C", text: "urbanly", isCorrect: false, errorAnalysis: "'Urbanly' is an adverb form and cannot act as the subject of the sentence." },
-                    { label: "D", text: "urbanity", isCorrect: false, errorAnalysis: "'Urbanity' refers to refined elegance, not the geographic expanding process of cities." }
-                ],
-                ruleTip: "Grammar Rule: Article 'The' + [Noun (-ization)] + preposition 'of'"
-            },
-            {
-                id: 3,
-                section: "Section 3: Subject-Verb Agreement",
-                questionText: "Choose the correct verb form for the given context: <br><em>'A report on regional employment states that wages have risen; however, many communities in the region _____ (show) unequal growth.'</em>",
-                options: [
-                    { label: "A", text: "shows", isCorrect: false, errorAnalysis: "Subject-Verb disagreement! The subject is 'many communities' (plural), so the verb must also be plural." },
-                    { label: "B", text: "showed", isCorrect: false, errorAnalysis: "Tense mismatch. The first clause uses present perfect ('have risen'), maintaining present tense continuity." },
-                    { label: "C", text: "show", isCorrect: true, correctAnalysis: "Correct! 'Communities' is a plural subject requiring the base plural verb 'show' in simple present." },
-                    { label: "D", text: "showing", isCorrect: false, errorAnalysis: "A participle '-ing' cannot act as the main finite verb of the clause without an auxiliary verb." }
-                ],
-                ruleTip: "Grammar Rule: Identify the true subject noun ('communities'), ignoring prepositional phrases ('in the region')."
+    <!-- PART 2: Subject-Verb & Vocab -->
+    <div id="part2" class="section-content">
+        <h2>Grammar & Word Forms</h2>
+
+        <!-- Activity 5 -->
+        <div class="exercise-card">
+            <h3>Activity 5 – Subject-Verb Agreement</h3>
+            <p class="sub-text">Write the correct form of each verb in parentheses. Pay attention to the main subject.</p>
+
+            <div class="question-item" id="act5-q1">
+                <div class="question-text">1. Using a device for measuring air quality ______ (be, simple present) helpful. The accuracy of these instruments ______ (depend, simple present) on proper calibration.</div>
+                <input type="text" id="act5-q1-a1" placeholder="Verb 1">
+                <input type="text" id="act5-q1-a2" placeholder="Verb 2" style="margin-top: 5px;">
+                <button class="btn-check" onclick="checkTextMulti('act5-q1', ['is', 'depends'])">Submit Answer</button>
+                <div class="feedback"></div>
+            </div>
+
+            <div class="question-item" id="act5-q2">
+                <div class="question-text">2. Phones without physical keyboards ______ (become, present progressive) less common. The percentage of users with such phones ______ (be, simple present) small.</div>
+                <input type="text" id="act5-q2-a1" placeholder="Verb 1">
+                <input type="text" id="act5-q2-a2" placeholder="Verb 2" style="margin-top: 5px;">
+                <button class="btn-check" onclick="checkTextMulti('act5-q2', ['are becoming', 'is'])">Submit Answer</button>
+                <div class="feedback"></div>
+            </div>
+        </div>
+
+        <!-- Activity 4 -->
+        <div class="exercise-card">
+            <h3>Activity 4 – Use the Correct Word Form</h3>
+            <p class="sub-text">Complete each blank using the correct form of the word in parentheses. Use plural nouns or gerunds where necessary.</p>
+
+            <div class="question-item" id="act4-q1">
+                <div class="question-text">1. Young children are capable of ________________ (recognize) familiar voices.</div>
+                <input type="text" id="act4-q1-a1">
+                <button class="btn-check" onclick="checkTextMulti('act4-q1', ['recognizing'])">Submit Answer</button>
+                <div class="feedback"></div>
+            </div>
+
+            <div class="question-item" id="act4-q2">
+                <div class="question-text">2. Conservationists are worried about ________________ (damage) natural habitats.</div>
+                <input type="text" id="act4-q2-a1">
+                <button class="btn-check" onclick="checkTextMulti('act4-q2', ['damaging'])">Submit Answer</button>
+                <div class="feedback"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PART 3: Paragraph Editing -->
+    <div id="part3" class="section-content">
+        <h2>Exercise 9 – Paragraph Editing (Autonomous Vehicles)</h2>
+        <div class="passage-box">
+            <strong>Original Paragraph:</strong><br>
+            <sup>1</sup>Autonomous vehicles are cars and trucks equipped with sensors and software to drive themselves. <sup>2</sup>John Smith wrote in <em>Wired</em> magazine on May 10, 2022. <sup>3</sup>John Smith describes a massive new effort among tech giants, traditional automakers, and city planners to create vehicles that can navigate traffic, avoid pedestrians, or reduce emissions. <sup>4</sup>Self-driving cars could offer significant benefits in many cities. <sup>5</sup>For instance, delivery vans that can be customized could detect if a route is congested and then find a faster path. ...
+        </div>
+
+        <div class="exercise-card">
+            <div class="question-item" id="ex9-q1">
+                <div class="question-text">1. Change sentence 2 to a participial phrase beginning with <em>Writing</em>. Delete <em>John Smith</em>. Then combine sentences 2 and 3.</div>
+                <input type="text" style="max-width: 100%;" id="ex9-q1-a" placeholder="Type your combined sentence...">
+                <button class="btn-check" onclick="checkSentence('ex9-q1-a', 'Writing in Wired magazine on May 10, 2022, John Smith describes a massive new effort')">Submit Answer</button>
+                <div class="feedback"></div>
+            </div>
+
+            <div class="question-item" id="ex9-q2">
+                <div class="question-text">2. Summaries should include attribution. Insert <em>According to Smith</em> at the beginning of sentence 4.</div>
+                <input type="text" style="max-width: 100%;" id="ex9-q2-a" placeholder="Type revised sentence 4...">
+                <button class="btn-check" onclick="checkSentence('ex9-q2-a', 'According to Smith, self-driving cars could offer significant benefits in many cities.')">Submit Answer</button>
+                <div class="feedback"></div>
+            </div>
+
+            <div class="question-item" id="ex9-q3">
+                <div class="question-text">3. Replace <em>that can be customized</em> with the adjective <em>customizable</em> before <em>delivery vans</em>.</div>
+                <input type="text" style="max-width: 100%;" id="ex9-q3-a" placeholder="Type revised sentence 5...">
+                <button class="btn-check" onclick="checkSentence('ex9-q3-a', 'For instance, customizable delivery vans could detect if a route is congested and then find a faster path.')">Submit Answer</button>
+                <div class="feedback"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PART 4: Exam Revision Section 1 & 2 -->
+    <div id="part4" class="section-content">
+        <h2>Exam Revision – Sections 1 & 2</h2>
+
+        <!-- Section 1 -->
+        <div class="exercise-card">
+            <h3>Section 1: Prepositions in Academic Writing</h3>
+            <p class="sub-text">Fill in the blanks: (in, on, for, to, at, with, of, from)</p>
+            <div class="question-item" id="sec1-q1">
+                <div class="question-text">1. According ______ long-term animal studies, city leaders must concentrate ______ the rapid increase of wild foxes.</div>
+                <input type="text" id="sec1-q1-a1" placeholder="Blank 1">
+                <input type="text" id="sec1-q1-a2" placeholder="Blank 2" style="margin-top: 5px;">
+                <button class="btn-check" onclick="checkTextMulti('sec1-q1', ['to', 'on'])">Submit Answer</button>
+                <div class="feedback"></div>
+            </div>
+            <div class="question-item" id="sec1-q2">
+                <div class="question-text">2. In 2010, fox sightings stood ______ 12% of all recorded animal reports.</div>
+                <input type="text" id="sec1-q2-a1">
+                <button class="btn-check" onclick="checkTextMulti('sec1-q2', ['at'])">Submit Answer</button>
+                <div class="feedback"></div>
+            </div>
+        </div>
+
+        <!-- Section 2 -->
+        <div class="exercise-card">
+            <h3>Section 2: Word Suffix Formation</h3>
+            <p class="sub-text">Transform the base word using appropriate suffixes (-e.g., -tion, -ity, -ment, -ize, -ive, -en, -able, -ify).</p>
+            <div class="word-bank">Base Words: urban, strong, vulnerable, vary, minimum, adapt, diverse</div>
+
+            <div class="question-item" id="sec2-q1">
+                <div class="question-text">1. The rapid ________________ (urban) of quiet farmland near the city has destroyed birds' natural nesting areas.</div>
+                <input type="text" id="sec2-q1-a1">
+                <button class="btn-check" onclick="checkTextMulti('sec2-q1', ['urbanization'])">Submit Answer</button>
+                <div class="feedback"></div>
+            </div>
+
+            <div class="question-item" id="sec2-q2">
+                <div class="question-text">2. Coyotes have a remarkably ________________ (adapt) digestive system.</div>
+                <input type="text" id="sec2-q2-a1">
+                <button class="btn-check" onclick="checkTextMulti('sec2-q2', ['adaptive'])">Submit Answer</button>
+                <div class="feedback"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PART 5: Exam Revision Section 3 (MCQs) -->
+    <div id="part5" class="section-content">
+        <h2>Exam Revision – Section 3: Multiple Choice Questions</h2>
+
+        <div class="exercise-card">
+            <div class="question-item" id="mcq-q1">
+                <div class="question-text">1. Environmental non-profits must collaborate ______ local law enforcement and commit themselves ______ community awareness seminars.</div>
+                <div class="options-group">
+                    <label class="option-label"><input type="radio" name="mcq1" value="A"> A. with; to organizing</label>
+                    <label class="option-label"><input type="radio" name="mcq1" value="B"> B. with; to organize</label>
+                    <label class="option-label"><input type="radio" name="mcq1" value="C"> C. on; for organizing</label>
+                    <label class="option-label"><input type="radio" name="mcq1" value="D"> D. to; in organizing</label>
+                </div>
+                <button class="btn-check" onclick="checkMCQ('mcq-q1', 'mcq1', 'A')">Submit Answer</button>
+                <div class="feedback"></div>
+            </div>
+
+            <div class="question-item" id="mcq-q2">
+                <div class="question-text">2. Expanding housing developments threaten to ______ the remaining native woodlands along the valley border.</div>
+                <div class="options-group">
+                    <label class="option-label"><input type="radio" name="mcq2" value="A"> A. look into</label>
+                    <label class="option-label"><input type="radio" name="mcq2" value="B"> B. take by storm</label>
+                    <label class="option-label"><input type="radio" name="mcq2" value="C"> C. push the boundaries of</label>
+                    <label class="option-label"><input type="radio" name="mcq2" value="D"> D. swallow up</label>
+                </div>
+                <button class="btn-check" onclick="checkMCQ('mcq-q2', 'mcq2', 'D')">Submit Answer</button>
+                <div class="feedback"></div>
+            </div>
+
+            <div class="question-item" id="mcq-q3">
+                <div class="question-text">3. In 2012, household waste separation rates in Germany and the UK stood at 65% and 39% ______.</div>
+                <div class="options-group">
+                    <label class="option-label"><input type="radio" name="mcq3" value="A"> A. relatively</label>
+                    <label class="option-label"><input type="radio" name="mcq3" value="B"> B. respectively</label>
+                    <label class="option-label"><input type="radio" name="mcq3" value="C"> C. in sharp contrast</label>
+                    <label class="option-label"><input type="radio" name="mcq3" value="D"> D. similarly</label>
+                </div>
+                <button class="btn-check" onclick="checkMCQ('mcq-q3', 'mcq3', 'B')">Submit Answer</button>
+                <div class="feedback"></div>
+            </div>
+
+            <div class="question-item" id="mcq-q4">
+                <div class="question-text">4. Although wind energy production initially lagged behind hydroelectric output, wind generation accelerated and ______ hydro power around 2018.</div>
+                <div class="options-group">
+                    <label class="option-label"><input type="radio" name="mcq4" value="A"> A. hovered</label>
+                    <label class="option-label"><input type="radio" name="mcq4" value="B"> B. dropped significantly</label>
+                    <label class="option-label"><input type="radio" name="mcq4" value="C"> C. surpassed</label>
+                    <label class="option-label"><input type="radio" name="mcq4" value="D"> D. fluctuated slightly</label>
+                </div>
+                <button class="btn-check" onclick="checkMCQ('mcq-q4', 'mcq4', 'C')">Submit Answer</button>
+                <div class="feedback"></div>
+            </div>
+
+            <div class="question-item" id="mcq-q5">
+                <div class="question-text">5. During severe summer heatwaves, outdoor workers and elderly residents are particularly prone ______ acute dehydration.</div>
+                <div class="options-group">
+                    <label class="option-label"><input type="radio" name="mcq5" value="A"> A. with suffering from</label>
+                    <label class="option-label"><input type="radio" name="mcq5" value="B"> B. to suffer from</label>
+                    <label class="option-label"><input type="radio" name="mcq5" value="C"> C. to suffering from</label>
+                    <label class="option-label"><input type="radio" name="mcq5" value="D"> D. for suffering from</label>
+                </div>
+                <button class="btn-check" onclick="checkMCQ('mcq-q5', 'mcq5', 'B')">Submit Answer</button>
+                <div class="feedback"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PART 6: Sentence Rewriting -->
+    <div id="part6" class="section-content">
+        <h2>Exam Revision – Section 4: Sentence Rewriting</h2>
+
+        <div class="exercise-card">
+            <div class="question-item" id="rw-q1">
+                <div class="question-text">1. The percentage of families without a car fell steadily between 1971 and 2007.</div>
+                <p class="sub-text">(Begin with: "The percentage of families without a car saw...")</p>
+                <input type="text" style="max-width: 100%;" id="rw-q1-a" placeholder="Type answer...">
+                <button class="btn-check" onclick="checkSentence('rw-q1-a', 'The percentage of families without a car saw a steady fall from 1971 to 2007.')">Submit Answer</button>
+                <div class="feedback"></div>
+            </div>
+
+            <div class="question-item" id="rw-q2">
+                <div class="question-text">2. The plants in the classroom died because there was not enough natural sunlight.</div>
+                <p class="sub-text">(Rewrite using "death", "happened", and "lack")</p>
+                <input type="text" style="max-width: 100%;" id="rw-q2-a" placeholder="Type answer...">
+                <button class="btn-check" onclick="checkSentence('rw-q2-a', 'The death of the plants in the classroom happened because of a lack of natural sunlight.')">Submit Answer</button>
+                <div class="feedback"></div>
+            </div>
+
+            <div class="question-item" id="rw-q3">
+                <div class="question-text">3. The bears could not jump over the fence. The rangers built high metal gates.</div>
+                <p class="sub-text">(Combine using preposition after "prevented". Begin with: "The high metal gates prevented...")</p>
+                <input type="text" style="max-width: 100%;" id="rw-q3-a" placeholder="Type answer...">
+                <button class="btn-check" onclick="checkSentence('rw-q3-a', 'The high metal gates prevented the bears from jumping over the fence.')">Submit Answer</button>
+                <div class="feedback"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function showTab(tabId) {
+        document.querySelectorAll('.section-content').forEach(el => el.classList.remove('active'));
+        document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+        
+        document.getElementById(tabId).classList.add('active');
+        event.currentTarget.classList.add('active');
+    }
+
+    function checkSelectMulti(containerId, correctAnswers) {
+        const container = document.getElementById(containerId);
+        const selects = container.querySelectorAll('select');
+        const feedback = container.querySelector('.feedback');
+        let allCorrect = true;
+
+        selects.forEach((select, index) => {
+            if (select.value.trim().toLowerCase() !== correctAnswers[index].toLowerCase()) {
+                allCorrect = false;
             }
-        ];
+        });
 
-        function renderQuiz() {
-            const container = document.getElementById('quiz-container');
-            container.innerHTML = '';
+        if (allCorrect) {
+            feedback.className = 'feedback correct';
+            feedback.innerHTML = '<strong>Correct!</strong> Well done.';
+        } else {
+            feedback.className = 'feedback incorrect';
+            feedback.innerHTML = '<strong>Incorrect.</strong> The correct sequence is: <em>' + correctAnswers.join(', ') + '</em>.';
+        }
+    }
 
-            questionsData.forEach((q, index) => {
-                const card = document.createElement('div');
-                card.className = 'bg-white japanese-border p-6 transition-all';
-                card.id = `question-${q.id}`;
+    function checkTextMulti(containerId, correctAnswers) {
+        const container = document.getElementById(containerId);
+        const inputs = container.querySelectorAll('input[type="text"]');
+        const feedback = container.querySelector('.feedback');
+        let allCorrect = true;
 
-                let optionsHTML = '';
-                q.options.forEach((opt, optIndex) => {
-                    optionsHTML += `
-                        <button onclick="checkAnswer(${q.id}, ${optIndex})" 
-                            class="w-full text-left p-3 border-2 border-slate-200 hover:border-slate-800 transition-colors flex items-center space-x-3 bg-slate-50/50 hover:bg-slate-100 mb-2">
-                            <span class="w-7 h-7 flex items-center justify-center bg-slate-800 text-white font-bold text-xs rounded-sm">${opt.label}</span>
-                            <span class="text-slate-800 font-medium">${opt.text}</span>
-                        </button>
-                    `;
-                });
+        inputs.forEach((input, index) => {
+            if (input.value.trim().toLowerCase() !== correctAnswers[index].toLowerCase()) {
+                allCorrect = false;
+            }
+        });
 
-                card.innerHTML = `
-                    <div class="text-xs font-bold text-slate-500 uppercase tracking-widest mb-1">${q.section}</div>
-                    <h3 class="text-base font-semibold text-slate-900 mb-4 border-b border-slate-200 pb-3 leading-relaxed">
-                        ${index + 1}. ${q.questionText}
-                    </h3>
-                    <div class="space-y-2">
-                        ${optionsHTML}
-                    </div>
-                    <!-- Feedback Box -->
-                    <div id="feedback-${q.id}" class="hidden mt-4 p-4 border-l-4 rounded-r bg-slate-50"></div>
-                `;
-                container.appendChild(card);
-            });
+        if (allCorrect) {
+            feedback.className = 'feedback correct';
+            feedback.innerHTML = '<strong>Correct!</strong> Excellent work.';
+        } else {
+            feedback.className = 'feedback incorrect';
+            feedback.innerHTML = '<strong>Incorrect.</strong> Correct answer(s): <em>' + correctAnswers.join(', ') + '</em>.';
+        }
+    }
+
+    function checkMCQ(containerId, groupName, correctVal) {
+        const container = document.getElementById(containerId);
+        const selected = container.querySelector(`input[name="${groupName}"]:checked`);
+        const feedback = container.querySelector('.feedback');
+
+        if (!selected) {
+            feedback.className = 'feedback incorrect';
+            feedback.innerHTML = 'Please select an option first.';
+            return;
         }
 
-        function checkAnswer(questionId, selectedIndex) {
-            const q = questionsData.find(item => item.id === questionId);
-            const selectedOpt = q.options[selectedIndex];
-            const feedbackBox = document.getElementById(`feedback-${questionId}`);
-
-            feedbackBox.classList.remove('hidden');
-
-            if (selectedOpt.isCorrect) {
-                feedbackBox.className = "mt-4 p-4 border-l-4 border-emerald-600 bg-emerald-50 text-slate-800";
-                feedbackBox.innerHTML = `
-                    <div class="flex items-center space-x-2 text-emerald-800 font-bold mb-1">
-                        <span class="text-lg">【 正解 • CORRECT 】</span>
-                        <span class="text-xs border border-emerald-800 px-2 py-0.5 rounded">秀</span>
-                    </div>
-                    <p class="text-sm text-emerald-900">${selectedOpt.correctAnalysis}</p>
-                    <div class="mt-2 text-xs font-semibold text-emerald-700">${q.ruleTip}</div>
-                `;
-            } else {
-                feedbackBox.className = "mt-4 p-4 border-l-4 border-red-600 bg-red-50 text-slate-800";
-                feedbackBox.innerHTML = `
-                    <div class="flex items-center space-x-2 red-ink mb-1">
-                        <span class="text-lg">【 指導 • TEACHER'S CORRECTION 】</span>
-                        <span class="text-xs border border-red-600 px-2 py-0.5 rounded uppercase">Incorrect</span>
-                    </div>
-                    <div class="text-sm text-red-900 space-y-1">
-                        <p><strong>Mistake:</strong> Selected option <em>(${selectedOpt.label}) ${selectedOpt.text}</em></p>
-                        <p><strong>Reasoning:</strong> ${selectedOpt.errorAnalysis}</p>
-                    </div>
-                    <div class="mt-3 pt-2 border-t border-red-200 text-xs text-red-700 font-bold">
-                        💡 Key Takeaway: ${q.ruleTip}
-                    </div>
-                `;
-            }
+        if (selected.value === correctVal) {
+            feedback.className = 'feedback correct';
+            feedback.innerHTML = '<strong>Correct!</strong> Option ' + correctVal + ' is right.';
+        } else {
+            feedback.className = 'feedback incorrect';
+            feedback.innerHTML = '<strong>Incorrect.</strong> The correct option is <strong>' + correctVal + '</strong>.';
         }
+    }
 
-        // Initialize App
-        renderQuiz();
-    </script>
+    function checkSentence(inputId, expectedAnswer) {
+        const input = document.getElementById(inputId);
+        const feedback = input.parentNode.querySelector('.feedback');
+        const userVal = input.value.trim().replace(/\s+/g, ' ');
+
+        if (userVal.toLowerCase() === expectedAnswer.toLowerCase()) {
+            feedback.className = 'feedback correct';
+            feedback.innerHTML = '<strong>Perfect match!</strong><br>' + expectedAnswer;
+        } else {
+            feedback.className = 'feedback incorrect';
+            feedback.innerHTML = '<strong>Compare your response:</strong><br><em>Sample Correct Answer:</em> ' + expectedAnswer;
+        }
+    }
+</script>
+
 </body>
 </html>
 ```eof
 
-### Features included:
-1. **Japanese Academic Styling:** Uses classic dark navy text, traditional grid alignment, clean borders, red hanko stamps, and a blackboard header.
-2. **Interactive Red Pen Teacher Corrections:** When a wrong answer is selected, an immediate Japanese high school style correction block (指導 / Sensei Feedback) explains the grammatical error and teaches the correct syntax.
-3. **Curriculum-Based Practice:** The grammar questions mirror the exact material found in your photos (Prepositions in context, Suffix formation, and Subject-Verb agreement).
+### Summary of Generated Webpage
+- **Organized Structure:** Separated into six distinct tabs covering prepositions, subject-verb agreement, word formation, paragraph editing, multiple-choice questions, and sentence rewriting.
+- **Immediate Answer Checking:** Includes dedicated check buttons for each question with dynamic feedback indicating correctness and showing the exact right answer if mistaken.
+- **Formal Academic Styling:** Formatted cleanly using classic typography and minimal UI components tailored for institutional or study environments.
