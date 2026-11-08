@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>英語学習教室 - English Grammar Academy</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;600;700&family=Shippori+Mincho:wght@500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Shippori Mincho', 'Noto Serif JP', serif;
+            background-color: #f4f1ea;
+            color: #2b2b2b;
+            background-image: radial-gradient(#d5cebe 0.75px, transparent 0.75px);
+            background-size: 16px 16px;
+        }
+        .japanese-border {
+            border: 2px solid #1e293b;
+            box-shadow: 4px 4px 0px #1e293b;
+        }
+        .red-ink {
+            color: #c82323;
+            font-family: 'Courier New', Courier, monospace;
+            font-weight: bold;
+        }
+        .hanko-stamp {
+            border: 3px solid #c82323;
+            color: #c82323;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transform: rotate(-12deg);
+            font-weight: bold;
+        }
+        .chalkboard {
+            background-color: #1b382b;
+            color: #f8fafc;
+            border: 8px solid #854d0e;
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.6);
+        }
+    </style>
+</head>
+<body class="min-h-screen py-8 px-4 flex flex-col items-center">
+
+    <!-- Header Section -->
+    <header class="w-full max-w-4xl bg-white japanese-border p-6 mb-8 flex justify-between items-center bg-amber-50/40">
+        <div>
+            <div class="text-xs font-bold tracking-widest text-slate-500 uppercase mb-1">Academic Grammar Test • 英語科</div>
+            <h1 class="text-3xl font-bold text-slate-900 tracking-wide">高等英語演習教室</h1>
+            <p class="text-sm text-slate-600 mt-1">Japanese School Formal Edition — Interactive Practice & Correction</p>
+        </div>
+        <div class="text-right">
+            <div class="hanko-stamp w-16 h-16 text-xs uppercase tracking-tighter border-4">
+                <span class="text-center leading-tight">合格<br>EXCELLENCE</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="w-full max-w-4xl space-y-6">
+
+        <!-- Instructions Panel -->
+        <div class="chalkboard p-6 rounded-sm shadow-xl relative">
+            <h2 class="text-xl font-semibold mb-2 text-yellow-200 border-b border-yellow-200/30 pb-2">【 Instructions / 注意事項 】</h2>
+            <p class="text-sm leading-relaxed text-emerald-100">
+                Complete the grammar exercises below derived from school exam revision sheets. Choose the correct answer for each option. If you make a mistake, the <span class="text-red-300 font-bold">Teacher's Red Pen Correction (指導)</span> will appear instantly to guide your learning.
+            </p>
+        </div>
+
+        <!-- Question Cards Container -->
+        <div id="quiz-container" class="space-y-6"></div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="mt-12 text-center text-xs text-slate-500 tracking-widest uppercase">
+        © Advanced Academic English Division • Formal Japanese High School Curriculum
+    </footer>
+
+    <!-- Script for Interactive Logic -->
+    <script>
+        const questionsData = [
+            {
+                id: 1,
+                section: "Section 1: Prepositions in Academic Writing",
+                questionText: "Complete the sentence with the correct preposition combination: <br><em>'Environmental non-profits must collaborate _____ local law enforcement and commit themselves _____ community awareness seminars.'</em>",
+                options: [
+                    { label: "A", text: "with; to in organizing", isCorrect: false, errorAnalysis: "Using 'in organizing' after 'commit themselves to' creates awkward syntax. 'To' functions as a preposition requiring a direct noun or gerund target." },
+                    { label: "B", text: "with; to organizing", isCorrect: true, correctAnalysis: "Correct! 'Collaborate with' indicates partnership, and 'commit oneself to' takes a gerund (-ing) as the object of the preposition." },
+                    { label: "C", text: "on; for organizing", isCorrect: false, errorAnalysis: "Incorrect collocations. You collaborate 'with' a group, not 'on' a group." },
+                    { label: "D", text: "to; in organizing", isCorrect: false, errorAnalysis: "'Collaborate to' requires a verb root (e.g., collaborate to build), but here it precedes a noun entity." }
+                ],
+                ruleTip: "Grammar Rule: 'Collaborate with [person/group]' | 'Commit to [doing something]'"
+            },
+            {
+                id: 2,
+                section: "Section 2: Word Suffix Formation",
+                questionText: "Transform the base word <strong>(urban)</strong> into the correct form: <br><em>'The rapid _____ of quiet farmland near the city has destroyed birds' natural nesting areas.'</em>",
+                options: [
+                    { label: "A", text: "urbanize", isCorrect: false, errorAnalysis: "'Urbanize' is a verb. The sentence requires a noun after the definite article 'The'." },
+                    { label: "B", text: "urbanization", isCorrect: true, correctAnalysis: "Correct! Adding '-ization' creates a noun representing the process of becoming urban." },
+                    { label: "C", text: "urbanly", isCorrect: false, errorAnalysis: "'Urbanly' is an adverb form and cannot act as the subject of the sentence." },
+                    { label: "D", text: "urbanity", isCorrect: false, errorAnalysis: "'Urbanity' refers to refined elegance, not the geographic expanding process of cities." }
+                ],
+                ruleTip: "Grammar Rule: Article 'The' + [Noun (-ization)] + preposition 'of'"
+            },
+            {
+                id: 3,
+                section: "Section 3: Subject-Verb Agreement",
+                questionText: "Choose the correct verb form for the given context: <br><em>'A report on regional employment states that wages have risen; however, many communities in the region _____ (show) unequal growth.'</em>",
+                options: [
+                    { label: "A", text: "shows", isCorrect: false, errorAnalysis: "Subject-Verb disagreement! The subject is 'many communities' (plural), so the verb must also be plural." },
+                    { label: "B", text: "showed", isCorrect: false, errorAnalysis: "Tense mismatch. The first clause uses present perfect ('have risen'), maintaining present tense continuity." },
+                    { label: "C", text: "show", isCorrect: true, correctAnalysis: "Correct! 'Communities' is a plural subject requiring the base plural verb 'show' in simple present." },
+                    { label: "D", text: "showing", isCorrect: false, errorAnalysis: "A participle '-ing' cannot act as the main finite verb of the clause without an auxiliary verb." }
+                ],
+                ruleTip: "Grammar Rule: Identify the true subject noun ('communities'), ignoring prepositional phrases ('in the region')."
+            }
+        ];
+
+        function renderQuiz() {
+            const container = document.getElementById('quiz-container');
+            container.innerHTML = '';
+
+            questionsData.forEach((q, index) => {
+                const card = document.createElement('div');
+                card.className = 'bg-white japanese-border p-6 transition-all';
+                card.id = `question-${q.id}`;
+
+                let optionsHTML = '';
+                q.options.forEach((opt, optIndex) => {
+                    optionsHTML += `
+                        <button onclick="checkAnswer(${q.id}, ${optIndex})" 
+                            class="w-full text-left p-3 border-2 border-slate-200 hover:border-slate-800 transition-colors flex items-center space-x-3 bg-slate-50/50 hover:bg-slate-100 mb-2">
+                            <span class="w-7 h-7 flex items-center justify-center bg-slate-800 text-white font-bold text-xs rounded-sm">${opt.label}</span>
+                            <span class="text-slate-800 font-medium">${opt.text}</span>
+                        </button>
+                    `;
+                });
+
+                card.innerHTML = `
+                    <div class="text-xs font-bold text-slate-500 uppercase tracking-widest mb-1">${q.section}</div>
+                    <h3 class="text-base font-semibold text-slate-900 mb-4 border-b border-slate-200 pb-3 leading-relaxed">
+                        ${index + 1}. ${q.questionText}
+                    </h3>
+                    <div class="space-y-2">
+                        ${optionsHTML}
+                    </div>
+                    <!-- Feedback Box -->
+                    <div id="feedback-${q.id}" class="hidden mt-4 p-4 border-l-4 rounded-r bg-slate-50"></div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function checkAnswer(questionId, selectedIndex) {
+            const q = questionsData.find(item => item.id === questionId);
+            const selectedOpt = q.options[selectedIndex];
+            const feedbackBox = document.getElementById(`feedback-${questionId}`);
+
+            feedbackBox.classList.remove('hidden');
+
+            if (selectedOpt.isCorrect) {
+                feedbackBox.className = "mt-4 p-4 border-l-4 border-emerald-600 bg-emerald-50 text-slate-800";
+                feedbackBox.innerHTML = `
+                    <div class="flex items-center space-x-2 text-emerald-800 font-bold mb-1">
+                        <span class="text-lg">【 正解 • CORRECT 】</span>
+                        <span class="text-xs border border-emerald-800 px-2 py-0.5 rounded">秀</span>
+                    </div>
+                    <p class="text-sm text-emerald-900">${selectedOpt.correctAnalysis}</p>
+                    <div class="mt-2 text-xs font-semibold text-emerald-700">${q.ruleTip}</div>
+                `;
+            } else {
+                feedbackBox.className = "mt-4 p-4 border-l-4 border-red-600 bg-red-50 text-slate-800";
+                feedbackBox.innerHTML = `
+                    <div class="flex items-center space-x-2 red-ink mb-1">
+                        <span class="text-lg">【 指導 • TEACHER'S CORRECTION 】</span>
+                        <span class="text-xs border border-red-600 px-2 py-0.5 rounded uppercase">Incorrect</span>
+                    </div>
+                    <div class="text-sm text-red-900 space-y-1">
+                        <p><strong>Mistake:</strong> Selected option <em>(${selectedOpt.label}) ${selectedOpt.text}</em></p>
+                        <p><strong>Reasoning:</strong> ${selectedOpt.errorAnalysis}</p>
+                    </div>
+                    <div class="mt-3 pt-2 border-t border-red-200 text-xs text-red-700 font-bold">
+                        💡 Key Takeaway: ${q.ruleTip}
+                    </div>
+                `;
+            }
+        }
+
+        // Initialize App
+        renderQuiz();
+    </script>
+</body>
+</html>
+```eof
+
+### Features included:
+1. **Japanese Academic Styling:** Uses classic dark navy text, traditional grid alignment, clean borders, red hanko stamps, and a blackboard header.
+2. **Interactive Red Pen Teacher Corrections:** When a wrong answer is selected, an immediate Japanese high school style correction block (指導 / Sensei Feedback) explains the grammatical error and teaches the correct syntax.
+3. **Curriculum-Based Practice:** The grammar questions mirror the exact material found in your photos (Prepositions in context, Suffix formation, and Subject-Verb agreement).
